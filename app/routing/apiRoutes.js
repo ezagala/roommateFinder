@@ -1,9 +1,12 @@
-const data = require("../data/roommates.js");
+const roommates = require("../data/roommates.js");
 
 module.exports = function(app) {
 
     app.get("/api/roommates", (req, res) => {
-        res.json(data); 
+        res.json(roommates); 
+
+        console.log(roommates);
+
     })
 
     // app.post("/api/roommates", (req, res) => {

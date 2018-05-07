@@ -26,7 +26,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q1">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -43,7 +43,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q2">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -60,7 +60,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q3">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -77,7 +77,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q4">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -94,7 +94,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q5">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -111,7 +111,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q6">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -128,7 +128,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q7">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -145,7 +145,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q8">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -162,7 +162,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q9">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -179,7 +179,7 @@
             <form>
                 <div class="row align-items-start">
                     <div class="col-8 ">
-                        <select class="custom-select">
+                        <select class="custom-select" id="q10">
                             <option selected>Select an option</option>
                             <option value="1">One (Strongly disagree)</option>
                             <option value="2">Two</option>
@@ -192,7 +192,7 @@
             </form>
             <br>
             <!-- Submit button -->
-            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#resultModal">Submit!</button>
+            <button id="submit" type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#resultModal">Submit!</button>
             <br>
             <!-- Modal -->
             <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
@@ -209,7 +209,6 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -217,8 +216,34 @@
         </div>      
     </div>
 <!-- Bootstrap, jQuery and Popper cdn -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    // jQuery to pull input from the page 
+    $('#submit').on('click', event => {
+        event.preventDefault(); 
+
+        // Build new character profile
+        const scores = []; 
+        for (let i = 1; i < 11; i++) {
+            scores.push(parseInt($('#q' + i).val()))
+        }
+
+        const profile = {
+            name: $("#name").val().trim(), 
+            photo: $("#photo").val().trim(),
+        } 
+
+        profile.scores = scores; 
+
+        console.log(profile);   
+
+        $.get("/api/roommates", data => {
+            console.log(data);
+        })
+
+    })
+</script>
 </body>
 </html>
