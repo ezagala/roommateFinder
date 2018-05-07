@@ -239,8 +239,9 @@
 
         console.log(profile);   
 
-        $.get("/api/roommates", data => {
-            console.log(data);
+        $.put("/api/roommates", profile).then(data => {
+            console.log(data); 
+            // Data will be the match, render it to the modal
         })
 
     })
