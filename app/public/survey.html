@@ -205,7 +205,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        These people. The ones right here.  
+                            
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -242,6 +242,11 @@
         $.put("/api/roommates", profile).then(data => {
             console.log(data); 
             // Data will be the match, render it to the modal
+            const match = JSON.parse(data)
+            const name = `<h4>${match.name}</h4>`;
+            const photo = `<img src="${match.photo}">`; 
+            $(".modal-body").append(name); 
+            $(".modal-body").append(photo); 
         })
 
     })
