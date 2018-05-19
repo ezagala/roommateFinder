@@ -8,8 +8,12 @@ module.exports = function(app) {
 
     app.put("/api/roommates", (req, res) => {
 
+        console.log("Put hit "); 
+        console.log("Put hit x2"); 
+
+
         const roommate = req.body; 
-        console.log("Roommate: " + roommate); 
+        console.log("Roommate: " + JSON.stringify(roommate)); 
 
         // This will be updated to contain the name and total difference of each profile in the dataset 
         const comparisons = []; 
@@ -21,6 +25,7 @@ module.exports = function(app) {
 
                     const differences = []; 
 
+                    //math.abs 
                     if (w > x) {
                         differences.push(w - x)
                     } else if (x > w) {
@@ -36,6 +41,9 @@ module.exports = function(app) {
             }); 
          })
 
+         
+         console.log("Comparisions" + JSON.stringify(comparisons)); 
+
         //  Loop through the comparisons array and return the lowest totalDifference
        const lowestDiff = comparisons.reduce((accum, curVal) => {
             if (curVal.totalDifference < accum) {
@@ -44,20 +52,25 @@ module.exports = function(app) {
         }, 6); 
 
        // Loop through comparisons again, return the index--e.g. {name: name, totalDiff: totalDiff} --with the lowest score
-       const preMatch = comparisons.forEach(x => {
-            if (x.totalDifference = lowestDiff) {
+       const preMatch = comparisons.map(x => {
+            if (x.totalDifference === lowestDiff) {
+                
                 return x; 
             }
         }); 
 
+        console.log("prematch" + JSON.stringify(preMatch))
+
+
         // Loop through roomates and use the prematch value to find the actual profile match
         const match = roommates.forEach(x => {
-            if (JSON.parse(x.name) == preMatch.name) {
+            console.log(x); 
+            if (x.name == preMatch.name) {
                 return x; 
             }
         })
 
-        console.log(match); 
+        console.log("This is the match: " + match); 
 
         // Add the new profile to the data
         roommates.push(roommate); 
